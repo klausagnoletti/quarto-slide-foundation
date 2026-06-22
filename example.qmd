@@ -1,0 +1,88 @@
+---
+title: Slide Foundation
+pagetitle: Slide Foundation example
+format: slide-foundation-revealjs
+# Skin it: override the L0 role tokens. Delete this block to see the defaults.
+# include-in-header is where a theme supplies <style>:root{ --surface:…; }</style>
+---
+
+## {.center}
+
+::: {.lockup}
+[Slide Foundation]{.title}
+
+[one contract, every element]{.subtitle}
+:::
+
+## {.center}
+
+::: {.divider}
+THE ELEMENT SET
+:::
+
+## Card and callout
+
+::: {.card}
+A themed card. Surface, ink, accent, radius, border and depth all come from role tokens.
+:::
+
+::: {.callout}
+A callout: same tokens, accent-tinted surface.
+:::
+
+## Feature grid
+
+::: {.feature-grid}
+- **Detect** early signal
+- **Contain** the spread
+- **Recover** to normal
+:::
+
+## Quote
+
+::: {.quote}
+The same bones, skinned two ways, read as two studios.
+[the foundation]{.quote-attr}
+:::
+
+## Timeline
+
+::: {.timeline}
+- Discover [later]{.t-label}
+- Triage [then]{.t-label}
+- Resolve [done]{.t-label}
+:::
+
+## Motion {.center}
+
+::: {.card}
+[This card animates in with the theme's motion tokens.]{.fragment .fx}
+:::
+
+## Big number {.center}
+
+::: {.bignum}
+9
+:::
+::: {.bignum-label}
+elements from one token set [icon]{.icon-slot}
+:::
+
+## Multi-fill emblem {.center}
+
+::: {.emblem}
+```{=html}
+<svg viewBox="0 0 100 100" role="img" aria-label="containment emblem">
+  <circle class="e-bg" cx="50" cy="50" r="47"/>
+  <circle class="e-ring" cx="50" cy="50" r="44"/>
+  <path class="e-body" d="M50 16 L80 32 V58 Q80 82 50 90 Q20 82 20 58 V32 Z"/>
+  <path class="e-inner" d="M50 30 L67 41 V58 Q67 71 50 78 Q33 71 33 58 V41 Z"/>
+  <rect class="e-bar" x="47" y="42" width="6" height="16" rx="3"/>
+  <circle class="e-dot" cx="50" cy="62" r="5"/>
+</svg>
+```
+:::
+
+::: {.bignum-label}
+four role tokens, four fills, one flip
+:::

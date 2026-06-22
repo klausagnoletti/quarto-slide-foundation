@@ -9,12 +9,15 @@ produce element sets no one would guess share a foundation.
 ## Install
 
 ```bash
-quarto add https://codeberg.org/klausagnoletti/slide-foundation/archive/v0.1.0.zip
+quarto add klausagnoletti/quarto-slide-foundation
 ```
 
-Use the `.zip` archive, not `.tar.gz`: `quarto add` always unzips the download.
-Codeberg serves a versioned zip; `quarto add` vendors a copy into your project's
-`_extensions/`.
+`quarto add` vendors a copy into your project's `_extensions/`. To pin a
+version: `quarto add klausagnoletti/quarto-slide-foundation@v0.1.0`.
+
+(Also installable from a Codeberg mirror archive if you prefer:
+`quarto add https://codeberg.org/klausagnoletti/slide-foundation/archive/v0.1.0.zip`,
+using the `.zip`, since `quarto add` always unzips the download.)
 
 ## Use
 
