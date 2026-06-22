@@ -56,7 +56,9 @@ The same bones, skinned two ways, read as two studios.
 ## Motion {.center}
 
 ::: {.card}
-[This card animates in with the theme's motion tokens.]{.fragment .fx}
+A card, visible on load.
+
+[Press the arrow key: this line animates in with the theme's motion tokens.]{.fragment .fx}
 :::
 
 ## Big number {.center}

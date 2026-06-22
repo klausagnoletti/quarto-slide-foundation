@@ -4,8 +4,16 @@
   --radius:6px; --edge:3px; --shadow:none; --pad:0.7em 1em; --gap:0.8em;
   --motion-dur:0.4s; --motion-ease:ease;
 }
+/* deck-level background: reveal's default --r-background-color is #fff, which
+   leaves the viewport/body white behind slides (esp. the title slide). Theme
+   the whole backdrop from the surface token, not just per-section. */
+.reveal-viewport,.reveal .backgrounds{ background:var(--surface); }
 .reveal .slides section{ background:var(--surface); color:var(--ink); }
 .reveal h1,.reveal h2,.reveal h3{ color:var(--ink); }
+
+/* title slide: reveal/Quarto leave its text unstyled; bind it to role tokens. */
+#title-slide .title,.reveal section.title-slide .title{ color:var(--ink); }
+#title-slide .subtitle,#title-slide .author,#title-slide .date,#title-slide .quarto-title-authors,#title-slide .institute,.reveal section.title-slide .subtitle{ color:var(--muted); }
 
 /* L1 ELEMENTS — consume ONLY role tokens */
 .reveal .card{ background:var(--surface); color:var(--ink); border:var(--edge) solid var(--accent); border-radius:var(--radius); box-shadow:var(--shadow); padding:var(--pad); }
