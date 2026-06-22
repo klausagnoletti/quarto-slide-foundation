@@ -1,0 +1,9 @@
+title: Slide Foundation
+author: Klaus Agnoletti
+version: 0.1.0
+contributes:
+  formats:
+    revealjs:
+      embed-resources: true
+      css:
+        - foundation.css

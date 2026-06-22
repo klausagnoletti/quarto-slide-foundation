@@ -1,0 +1,60 @@
+/* L0 CONTRACT: role tokens (colour + TREATMENT) with fallback defaults */
+:root{
+  --surface:#15131f; --ink:#efeafd; --accent:#d6b25a; --muted:#9a93b5;
+  --radius:6px; --edge:3px; --shadow:none; --pad:0.7em 1em; --gap:0.8em;
+  --motion-dur:0.4s; --motion-ease:ease;
+}
+.reveal .slides section{ background:var(--surface); color:var(--ink); }
+.reveal h1,.reveal h2,.reveal h3{ color:var(--ink); }
+
+/* L1 ELEMENTS — consume ONLY role tokens */
+.reveal .card{ background:var(--surface); color:var(--ink); border:var(--edge) solid var(--accent); border-radius:var(--radius); box-shadow:var(--shadow); padding:var(--pad); }
+
+.reveal .bignum{ font-size:4.2em; font-weight:800; color:var(--accent); line-height:1; }
+.reveal .bignum-label{ color:var(--muted); text-transform:uppercase; letter-spacing:.16em; font-size:.85em; }
+
+.reveal .divider{ display:flex; align-items:center; gap:.7em; color:var(--accent); font-weight:700; }
+.reveal .divider::before,.reveal .divider::after{ content:""; flex:1; height:var(--edge); min-height:2px; background:var(--accent); border-radius:99px; }
+
+/* feature-grid: class sits on Quarto's wrapping div; target the inner ul/li */
+.reveal .feature-grid > ul{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); list-style:none; margin:0; padding:0; }
+.reveal .feature-grid > ul > li{ background:var(--surface); border:var(--edge) solid var(--accent); border-radius:var(--radius); box-shadow:var(--shadow); padding:var(--pad); }
+
+/* quote: accent bar + oversized text */
+.reveal .quote{ border-left:calc(var(--edge) * 2) solid var(--accent); padding:.2em 0 .2em .8em; font-size:1.5em; font-style:italic; color:var(--ink); }
+.reveal .quote-attr{ color:var(--muted); font-size:.6em; font-style:normal; text-transform:uppercase; letter-spacing:.12em; }
+
+/* callout: accent-tinted note */
+.reveal .callout{ background:color-mix(in srgb, var(--accent) 14%, var(--surface)); border:var(--edge) solid var(--accent); border-radius:var(--radius); padding:var(--pad); }
+
+/* title-lockup */
+.reveal .lockup .title{ font-size:2.6em; font-weight:800; color:var(--ink); line-height:1.05; }
+.reveal .lockup .subtitle{ color:var(--accent); font-weight:600; letter-spacing:.04em; }
+.reveal .lockup::after{ content:""; display:block; width:3em; height:calc(var(--edge) * 2); background:var(--accent); border-radius:99px; margin-top:.5em; }
+
+/* timeline: nodes on a connector line (class on wrapping div; target inner ul/li) */
+.reveal .timeline > ul{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--gap); position:relative; list-style:none; padding:1.4em 0 0; margin:0; }
+.reveal .timeline > ul::before{ content:""; position:absolute; top:1.55em; left:0; right:0; height:var(--edge); min-height:2px; background:var(--accent); border-radius:99px; }
+.reveal .timeline > ul > li{ flex:1; text-align:center; position:relative; }
+.reveal .timeline > ul > li::before{ content:""; display:block; width:.7em; height:.7em; border-radius:50%; background:var(--accent); margin:0 auto .5em; position:relative; }
+.reveal .timeline .t-label{ color:var(--muted); font-size:.7em; }
+
+/* icon-slot: inline SVG inherits currentColor=accent (single-fill) */
+.reveal .icon-slot{ color:var(--accent); display:inline-flex; vertical-align:middle; }
+.reveal .icon-slot svg{ width:1.4em; height:1.4em; }
+
+/* fx: token-driven reveal fragment. The element's MOTION (duration + easing)
+   comes from treatment role tokens, so a skin restyles the animation, not just
+   colour. Reveal toggles .visible on step; the transition reads --motion-*. */
+.reveal .fragment.fx{ opacity:0; transform:translateY(0.6em) scale(.96); transition:opacity var(--motion-dur) var(--motion-ease), transform var(--motion-dur) var(--motion-ease); }
+.reveal .fragment.fx.visible{ opacity:1; transform:none; }
+
+/* emblem: MULTI-FILL SVG — each part binds a DIFFERENT role token, so a token
+   flip recolours every part independently (not just one currentColor). */
+.reveal .emblem svg{ width:9em; height:9em; }
+.reveal .emblem .e-bg{ fill:var(--surface); }
+.reveal .emblem .e-ring{ fill:none; stroke:var(--accent); stroke-width:5; }
+.reveal .emblem .e-body{ fill:var(--accent); }
+.reveal .emblem .e-inner{ fill:var(--surface); }
+.reveal .emblem .e-dot{ fill:var(--muted); }
+.reveal .emblem .e-bar{ fill:var(--ink); }
