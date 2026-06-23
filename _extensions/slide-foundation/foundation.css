@@ -3,6 +3,9 @@
   --surface:#15131f; --ink:#efeafd; --accent:#d6b25a; --muted:#9a93b5;
   --radius:6px; --edge:3px; --shadow:none; --pad:0.7em 1em; --gap:0.8em;
   --motion-dur:0.4s; --motion-ease:ease;
+  /* typographic weight scale: centralised so emphasis is consistent across every
+     element AND tunable per skin (was scattered 800/700/600 literals). */
+  --weight-strong:800; --weight-bold:700; --weight-mid:600;
   /* Mermaid bridge: Quarto reads these --mermaid-* vars off :root and themes
      the diagram live. Point them at role tokens so diagrams reskin with the deck.
      (Use base mermaid.theme: neutral, the most overridable.) */
@@ -29,10 +32,10 @@
 /* L1 ELEMENTS — consume ONLY role tokens */
 .reveal .card{ background:var(--surface); color:var(--ink); border:var(--edge) solid var(--accent); border-radius:var(--radius); box-shadow:var(--shadow); padding:var(--pad); }
 
-.reveal .bignum{ font-size:4.2em; font-weight:800; color:var(--accent); line-height:1; }
+.reveal .bignum{ font-size:4.2em; font-weight:var(--weight-strong); color:var(--accent); line-height:1; }
 .reveal .bignum-label{ color:var(--muted); text-transform:uppercase; letter-spacing:.16em; font-size:.85em; }
 
-.reveal .divider{ display:flex; align-items:center; gap:.7em; color:var(--accent); font-weight:700; }
+.reveal .divider{ display:flex; align-items:center; gap:.7em; color:var(--accent); font-weight:var(--weight-bold); }
 .reveal .divider::before,.reveal .divider::after{ content:""; flex:1; height:var(--edge); min-height:2px; background:var(--accent); border-radius:99px; }
 
 /* feature-grid: class sits on Quarto's wrapping div; target the inner ul/li */
@@ -47,8 +50,8 @@
 .reveal .callout{ background:color-mix(in srgb, var(--accent) 14%, var(--surface)); border:var(--edge) solid var(--accent); border-radius:var(--radius); padding:var(--pad); }
 
 /* title-lockup */
-.reveal .lockup .title{ font-size:2.6em; font-weight:800; color:var(--ink); line-height:1.05; }
-.reveal .lockup .subtitle{ color:var(--accent); font-weight:600; letter-spacing:.04em; }
+.reveal .lockup .title{ font-size:2.6em; font-weight:var(--weight-strong); color:var(--ink); line-height:1.05; }
+.reveal .lockup .subtitle{ color:var(--accent); font-weight:var(--weight-mid); letter-spacing:.04em; }
 .reveal .lockup::after{ content:""; display:block; width:3em; height:calc(var(--edge) * 2); background:var(--accent); border-radius:99px; margin-top:.5em; }
 
 /* timeline: nodes on a connector line (class on wrapping div; target inner ul/li) */
@@ -124,3 +127,23 @@
 .reveal section.vcenter{ display:flex !important; flex-direction:column; min-height:100%; box-sizing:border-box; }
 .reveal section.vcenter > *:first-child{ margin-top:auto !important; }
 .reveal section.vcenter::after{ content:""; margin-top:auto; }
+
+/* Diagram line WEIGHT harmony: Mermaid/Graphviz default to ~1px strokes, which
+   read thin and weak next to text and the deck's bordered elements. Bind diagram
+   stroke widths to the deck's --edge treatment so lines match the overall weight. */
+.reveal .flowchart-link,.reveal .edgePath path{ stroke-width:var(--edge) !important; }
+.reveal .node rect,.reveal .node circle,.reveal .node polygon,.reveal .node path{ stroke-width:var(--edge) !important; }
+.reveal g.graph g.node ellipse,.reveal g.graph g.node polygon,.reveal g.graph g.edge path,.reveal g.graph g.edge polygon{ stroke-width:var(--edge) !important; }
+/* cross-diagram consistency: Mermaid outlines nodes in --ink by default while
+   Graphviz uses --accent; align Mermaid node borders to --accent so both engines
+   read the same (accent-outlined surface nodes, ink text, muted edges). */
+.reveal .node rect,.reveal .node circle,.reveal .node polygon,.reveal .node path{ stroke:var(--accent) !important; }
+
+/* Diagram TYPOGRAPHY harmony: Mermaid/Graphviz default to their own fonts
+   (trebuchet/Times), which clash with the deck. The foundation defines no font
+   (that's the deck's concern), so diagram text INHERITS the deck font by default
+   — a conscious choice to make diagrams read as part of the slide. A skin can
+   override these selectors for distinct diagram type. Size stays the tool's own
+   layout size (diagram labels are intentionally a touch smaller than body text). */
+.reveal .nodeLabel,.reveal .nodeLabel *,.reveal .edgeLabel,.reveal .edgeLabel *,.reveal .cluster span{ font-family:inherit !important; }
+.reveal g.graph text{ font-family:inherit !important; }
