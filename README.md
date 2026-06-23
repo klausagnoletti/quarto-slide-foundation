@@ -52,7 +52,7 @@ from the same role tokens:
 - **Code windows**: `mcanouil/quarto-code-window` chrome themes from tokens
   (`quarto add mcanouil/quarto-code-window`); pick a matching `highlight-style`
   (e.g. a dark one for dark skins) for the code body.
-- **Layout**: a `.rows` / `.row` primitive (vertical counterpart to `.columns`).
+- **Layout**: a `.rows` / `.row` primitive (vertical counterpart to `.columns`), plus `## Title {.vcenter}` to vertically centre a sparse slide.
 - **Motion**: reveal fragments and a `.fx` fragment driven by `--motion-dur` /
   `--motion-ease`; a `window.SlideFoundation` JS helper (`token`, `tokenColor`,
   `tokenMs`) lets chart/animation libraries read role tokens.

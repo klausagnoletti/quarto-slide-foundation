@@ -116,3 +116,11 @@
 .reveal .code-with-filename{ background-color:var(--surface) !important; color:var(--ink) !important; border-color:var(--accent) !important; border-radius:var(--radius) !important; }
 .reveal .code-with-filename .code-with-filename-file{ background-color:color-mix(in srgb, var(--accent) 10%, var(--surface)) !important; border-bottom-color:var(--accent) !important; color:var(--muted) !important; }
 .reveal .code-with-filename .code-with-filename-lines{ color:var(--muted) !important; background-color:color-mix(in srgb, var(--accent) 8%, var(--surface)) !important; }
+
+/* vcenter: opt-in per-slide vertical centring (`## Title {.vcenter}`) for sparse
+   slides that would otherwise leave bottom whitespace. reveal's non-center layout
+   ignores justify-content, so centre via auto-margins around the content block.
+   Flow content only — do NOT combine with floated images. */
+.reveal section.vcenter{ display:flex !important; flex-direction:column; min-height:100%; box-sizing:border-box; }
+.reveal section.vcenter > *:first-child{ margin-top:auto !important; }
+.reveal section.vcenter::after{ content:""; margin-top:auto; }
