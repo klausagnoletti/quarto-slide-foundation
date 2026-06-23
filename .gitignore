@@ -3,3 +3,6 @@
 .quarto/
 example.html
 example_files/
+
+# extension SOURCE html must ship (token-helper.html); only rendered output is ignored above
+!_extensions/**/*.html

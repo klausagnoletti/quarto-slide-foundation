@@ -1,6 +1,6 @@
 title: Slide Foundation
 author: Klaus Agnoletti
-version: 0.2.3
+version: 0.2.4
 contributes:
   shortcodes:
     - icon.lua
