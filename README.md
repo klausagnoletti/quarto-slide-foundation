@@ -13,10 +13,10 @@ quarto add klausagnoletti/quarto-slide-foundation
 ```
 
 `quarto add` vendors a copy into your project's `_extensions/`. To pin a
-version: `quarto add klausagnoletti/quarto-slide-foundation@v0.1.0`.
+version: `quarto add klausagnoletti/quarto-slide-foundation@v0.2.0`.
 
 (Also installable from a Codeberg mirror archive if you prefer:
-`quarto add https://codeberg.org/klausagnoletti/slide-foundation/archive/v0.1.0.zip`,
+`quarto add https://codeberg.org/klausagnoletti/slide-foundation/archive/v0.2.0.zip`,
 using the `.zip`, since `quarto add` always unzips the download.)
 
 ## Use
@@ -37,6 +37,25 @@ format:
 
 Set tokens only, never component selectors. Light and dark are the same
 mechanism: flip `--surface`/`--ink` and adjust `--shadow`.
+
+## Themed toolboxes (v0.2.0)
+
+Beyond the element library, the foundation themes common Quarto/reveal toolboxes
+from the same role tokens:
+
+- **Diagrams**: Mermaid (do not force a `mermaid.theme`; the foundation drives
+  Quarto's `--mermaid-*` vars) and Graphviz `dot` both reskin from tokens.
+- **Icons**: a `{{< icon set:name role=accent >}}` shortcode inlines Iconify
+  icons offline as `currentColor` SVG (role = `accent|muted|ink`, or omit to
+  inherit text colour). Requires the icon set(s) installed locally:
+  `bun add @iconify/utils @iconify-json/tabler @iconify-json/lucide`.
+- **Code windows**: `mcanouil/quarto-code-window` chrome themes from tokens
+  (`quarto add mcanouil/quarto-code-window`); pick a matching `highlight-style`
+  (e.g. a dark one for dark skins) for the code body.
+- **Layout**: a `.rows` / `.row` primitive (vertical counterpart to `.columns`).
+- **Motion**: reveal fragments and a `.fx` fragment driven by `--motion-dur` /
+  `--motion-ease`; a `window.SlideFoundation` JS helper (`token`, `tokenColor`,
+  `tokenMs`) lets chart/animation libraries read role tokens.
 
 ## API
 

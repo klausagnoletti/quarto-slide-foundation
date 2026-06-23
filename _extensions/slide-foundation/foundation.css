@@ -3,6 +3,17 @@
   --surface:#15131f; --ink:#efeafd; --accent:#d6b25a; --muted:#9a93b5;
   --radius:6px; --edge:3px; --shadow:none; --pad:0.7em 1em; --gap:0.8em;
   --motion-dur:0.4s; --motion-ease:ease;
+  /* Mermaid bridge: Quarto reads these --mermaid-* vars off :root and themes
+     the diagram live. Point them at role tokens so diagrams reskin with the deck.
+     (Use base mermaid.theme: neutral, the most overridable.) */
+  --mermaid-bg-color:var(--surface);
+  --mermaid-fg-color:var(--ink);
+  --mermaid-node-bg-color:var(--surface);
+  --mermaid-node-fg-color:var(--ink);
+  --mermaid-edge-color:var(--muted);
+  --mermaid-label-bg-color:var(--surface);
+  --mermaid-fg-color--lighter:var(--muted);
+  --mermaid-fg-color--lightest:var(--muted);
 }
 /* deck-level background: reveal's default --r-background-color is #fff, which
    leaves the viewport/body white behind slides (esp. the title slide). Theme
@@ -47,8 +58,10 @@
 .reveal .timeline > ul > li::before{ content:""; display:block; width:.7em; height:.7em; border-radius:50%; background:var(--accent); margin:0 auto .5em; position:relative; }
 .reveal .timeline .t-label{ color:var(--muted); font-size:.7em; }
 
-/* icon-slot: inline SVG inherits currentColor=accent (single-fill) */
-.reveal .icon-slot{ color:var(--accent); display:inline-flex; vertical-align:middle; }
+/* icon-slot: inline SVG wrapper. Default INHERITS the surrounding text colour
+   (currentColor), so an inline icon matches its text; the `{{< icon >}}`
+   shortcode binds role=accent|muted|ink explicitly when emphasis is wanted. */
+.reveal .icon-slot{ display:inline-flex; vertical-align:middle; }
 .reveal .icon-slot svg{ width:1.4em; height:1.4em; }
 
 /* fx: token-driven reveal fragment. The element's MOTION (duration + easing)
@@ -66,3 +79,40 @@
 .reveal .emblem .e-inner{ fill:var(--surface); }
 .reveal .emblem .e-dot{ fill:var(--muted); }
 .reveal .emblem .e-bar{ fill:var(--ink); }
+
+/* Graphviz (Quarto `dot`): renders inline SVG with literal fill/stroke attrs
+   that beat selectors, so recolour from role tokens needs !important. Scope to
+   g.graph so we never touch Mermaid or element SVGs. */
+.reveal g.graph > polygon{ fill:transparent !important; stroke:transparent !important; }
+.reveal g.graph g.node ellipse,
+.reveal g.graph g.node polygon{ fill:var(--surface) !important; stroke:var(--accent) !important; }
+.reveal g.graph g.node text{ fill:var(--ink) !important; }
+.reveal g.graph g.edge path{ stroke:var(--muted) !important; }
+.reveal g.graph g.edge polygon{ fill:var(--muted) !important; stroke:var(--muted) !important; }
+.reveal g.graph g.edge text{ fill:var(--muted) !important; }
+
+/* Mermaid labels (rendered client-side at load): the --mermaid-* vars theme node
+   backgrounds + edges, but label TEXT and edge-label backgrounds leak the base
+   theme. Bind them to role tokens. (Mermaid theme must NOT be forced to a baked
+   preset like neutral, or node bg ignores the vars.) */
+.reveal .nodeLabel,.reveal .nodeLabel *{ color:var(--ink) !important; }
+.reveal .edgeLabel,.reveal .edgeLabel *{ color:var(--muted) !important; }
+.reveal .edgeLabel .labelBkg{ background:var(--surface) !important; }
+.reveal .cluster rect{ fill:var(--surface) !important; stroke:var(--accent) !important; }
+
+/* rows: vertical counterpart to Quarto's built-in .columns — stack equal-height
+   horizontal tracks. Clean-room (the community `rows` extension ships no license).
+   Nested fenced divs (::: {.rows} > ::: {.row}) nest directly, so .rows > .row. */
+.reveal .rows{ display:flex; flex-direction:column; gap:var(--gap); height:100%; }
+.reveal .rows > .row{ display:flex; gap:var(--gap); flex:1 1 0; align-items:stretch; }
+.reveal .rows > .row > *{ flex:1; }
+
+/* attribution (rschmehl plugin, MIT): image-credit text -> muted role. */
+.reveal .attribution{ color:var(--muted) !important; }
+
+/* code-window (mcanouil/quarto-code-window, MIT): it builds on the `Canvas`
+   system colour, so on a themed slide it would show OS white. Rebind its surface,
+   text, border and titlebar to role tokens. (Consumer composes via quarto add.) */
+.reveal .code-with-filename{ background-color:var(--surface) !important; color:var(--ink) !important; border-color:var(--accent) !important; border-radius:var(--radius) !important; }
+.reveal .code-with-filename .code-with-filename-file{ background-color:color-mix(in srgb, var(--accent) 10%, var(--surface)) !important; border-bottom-color:var(--accent) !important; color:var(--muted) !important; }
+.reveal .code-with-filename .code-with-filename-lines{ color:var(--muted) !important; background-color:color-mix(in srgb, var(--accent) 8%, var(--surface)) !important; }
