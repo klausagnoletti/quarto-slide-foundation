@@ -68,6 +68,36 @@ token flip recolours each part independently:
 | `.e-dot`  | `fill: --muted`    |
 | `.e-bar`  | `fill: --ink`      |
 
+## Toolbox theming (v0.2.x)
+
+The foundation also themes common Quarto/reveal toolboxes from the same role tokens.
+
+### Icons (shortcode)
+`{{< icon set:name >}}` inlines an Iconify icon offline as a `currentColor` SVG.
+Optional `role=accent|muted|ink`; omit to inherit the surrounding text colour.
+Consumer must install the set(s): `bun add @iconify/utils @iconify-json/tabler @iconify-json/lucide`.
+House sets: Tabler (`tabler:*`), Lucide (`lucide:*`).
+
+### Diagrams
+- **Mermaid**: themed via Quarto's `--mermaid-*` vars (bound to role tokens) plus
+  `.nodeLabel`/`.edgeLabel` bindings. Do NOT set a baked `mermaid.theme` (e.g.
+  `neutral`) — it overrides the vars.
+- **Graphviz `dot`**: node/edge/text/background recoloured from tokens (scoped to `g.graph`).
+
+### Layout
+- `::: {.rows}` containing `::: {.row}` blocks — vertical counterpart to `.columns`.
+- `## Title {.vcenter}` — vertically centre a sparse slide (flow content only, not floats).
+
+### Code windows
+`mcanouil/quarto-code-window` chrome (container, titlebar, filename, line gutter)
+binds to role tokens. Add it with `quarto add mcanouil/quarto-code-window` and the
+`code-window` filter; pick a `highlight-style` matching the skin for the code body.
+
+### Motion + JS token helper
+`.fragment.fx` is a token-driven reveal fragment (reads `--motion-dur`/`--motion-ease`).
+`window.SlideFoundation` exposes `token(name)`, `tokenColor(name)`, `tokenMs(name)`
+so JS libraries (charts, Lottie recolour, animation engines) can read role tokens.
+
 ## Verification entry points (for CI)
 
 | Tool          | Covers                          |
