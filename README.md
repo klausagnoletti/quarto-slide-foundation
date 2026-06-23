@@ -57,6 +57,20 @@ from the same role tokens:
   `--motion-ease`; a `window.SlideFoundation` JS helper (`token`, `tokenColor`,
   `tokenMs`) lets chart/animation libraries read role tokens.
 
+## Authoring with AI
+
+The full authoring guide travels **inside the extension** at
+`_extensions/slide-foundation/AGENTS.md` once you `quarto add` it (since
+`quarto add` vendors only the `_extensions/<name>/` subtree). Point any AI tool
+at that file — it is the canonical source of truth for the token contract,
+elements, toolbox-harmony decisions, and the render-and-verify method.
+
+If you use **Claude Code**, this repo also bundles an invocable skill at
+`.claude/skills/SlideFoundation/` — clone the repo (or copy the skill into your
+own `~/.claude/skills/`) and it self-activates when you build, skin, or verify a
+deck on the foundation. The skill is the Claude-specific procedure layer; it
+shares one source of truth with `AGENTS.md` by reference, not by copy.
+
 ## API
 
 The stable public surface (L0 tokens, L1 element classes, the multi-fill SVG
